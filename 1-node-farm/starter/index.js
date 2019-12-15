@@ -34,6 +34,11 @@ console.log('File Written');
 ////////////////////////////////////////
 
 //SERVER
+
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8', (err, data) => {
+    const dataObj = JSON.parse(data);
+    
+});
 const server = http.createServer((req, res) => {
     console.log(req.url)
 
@@ -43,6 +48,10 @@ const server = http.createServer((req, res) => {
         res.end('Hello from the OVERVIEW');
     }else if(pathName === '/product'){
         res.end('This is the product');
+    }else if(pathName === '/api'){
+        res.writeHead(200, {'COntent-type': 'application/json'});
+        res.end(data)
+        
     }else {
         res.writeHead(404, { //must set headers BEFORE sending response!
             'Content-type': 'text/html',
